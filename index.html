@@ -307,7 +307,7 @@
       <div class="win" id="oyna">
         <div class="bar"><span>cete_destani_web.exe</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
         <!-- DÜZENLE: oyun dikey (mobil) ise --ratio değerini 9 / 16 yap -->
-        <div class="stage" id="stage" style="--ratio: 16 / 9">
+        <div class="stage" id="stage" style="--ratio: 640 / 380">
           <svg viewBox="0 0 960 540" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" role="img" aria-label="Oyundan bir sahne: gün batımında kale ve önünde toplanan üç kahraman">
             <rect width="960" height="540" fill="#14123A"/>
             <rect y="90"  width="960" height="90" fill="#25208F"/>
@@ -424,8 +424,8 @@
   /* DÜZENLE: itch.io bilgilerini buraya yaz.
      ITCH_EMBED: itch.io "Embed options" bölümündeki iframe kodunun içindeki src="..." adresi.
      ITCH_PAGE : oyunun itch.io sayfası (örn. https://kullanici.itch.io/oyun). */
-  const ITCH_EMBED = "";
-  const ITCH_PAGE  = "";
+  const ITCH_EMBED = "https://itch.io/embed-upload/16466598?color=000000";
+  const ITCH_PAGE  = "https://cetedestani.itch.io/cete-destani-maras-kurtulusu";
 
   const stage = document.getElementById("stage");
   const cover = document.getElementById("cover");
