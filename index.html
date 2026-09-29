@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>exe game studio</title>
-<meta name="description" content="exe, küçük bir ekibin bağımsız oyun stüdyosu. Üzerinde çalıştığımız oyunları keşfet.">
+<meta name="description" content="exe game studio: tarihi olayları oynanabilir hâle getiren bağımsız oyun stüdyosu. Çete Destanı: Maraş Kurtuluşu Android, iOS ve tarayıcıda oynanabilir.">
 <meta name="theme-color" content="#1F2BD9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314123A'/%3E%3Crect x='6' y='22' width='14' height='4' fill='%23FFD23F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,7 +72,7 @@
     border: 3px solid var(--ink);
     box-shadow: 4px 4px 0 var(--signal);
     padding: .65rem 1.1rem;
-    font-weight: 700; text-decoration: none;
+    font: inherit; font-weight: 700; text-decoration: none; cursor: pointer;
   }
   .btn:hover, .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--signal); }
 
@@ -151,31 +151,43 @@
   /* ---------- Bölümler ---------- */
   .section { padding-block: clamp(3.5rem, 8vw, 7rem); }
   .section-head { margin-bottom: 2.75rem; }
-  .section-head p { max-width: 32rem; margin: .9rem 0 0; }
+  .section-head p { max-width: 34rem; margin: .9rem 0 0; }
 
-  /* Oyunlar */
-  .games { display: grid; gap: 2.75rem; }
-  .art { display: block; width: 100%; height: auto; border-bottom: 3px solid var(--ink); background: var(--ink); }
+  /* Oyun */
+  .game-grid { display: grid; gap: 2.75rem; }
   .info { padding: 1.5rem; }
-  .info h3 { margin-top: .9rem; }
+  .info h3 { margin-top: .9rem; font-size: 1.6rem; }
   .info p { margin: .75rem 0 0; }
   .tag {
     display: inline-block; border: 2px solid var(--ink); background: var(--signal);
     padding: .05rem .6rem; font-weight: 600; font-size: .85rem;
   }
-  .tag-pink  { background: var(--pink); }
-  .tag-plain { background: var(--paper); }
   .props { display: grid; grid-template-columns: auto 1fr; gap: .25rem 1.25rem; margin: 1.1rem 0 1.5rem; }
   .props dt { font-weight: 600; }
   .props dd { margin: 0; }
+  .small { font-size: .95rem; margin-top: 1rem; }
 
-  @media (min-width: 800px) {
-    .games { grid-template-columns: 1fr 1fr; }
-    .game-featured { grid-column: 1 / -1; }
-    .game-featured .content { display: grid; grid-template-columns: 1.25fr 1fr; }
-    .game-featured .art { height: 100%; border-bottom: 0; border-right: 3px solid var(--ink); }
-    .game-featured .info { padding: 2rem; align-self: center; }
-    .game-featured h3 { font-size: 2rem; }
+  .stage { position: relative; aspect-ratio: var(--ratio, 16 / 9); background: var(--ink); }
+  .stage svg, .stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .run-wrap { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 1rem; padding: 1rem; text-align: center; }
+  .stage-note { margin: 0; background: var(--paper); border: 3px solid var(--ink); padding: .5rem .8rem; font-weight: 600; max-width: 26rem; }
+  .play-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.5rem; padding: .8rem 1rem; border-top: 3px solid var(--ink); font-size: .95rem; }
+  .play-foot a { font-weight: 600; }
+
+  .notes { margin-top: 3.5rem; max-width: 46rem; }
+  .notes-list { display: grid; padding: 0 1.25rem; }
+  .notes-list div { padding: 1.1rem 0; border-bottom: 2px solid var(--chrome); }
+  .notes-list div:last-child { border-bottom: 0; }
+  .notes-list h3 { font-size: 1.05rem; }
+  .notes-list p { margin: .4rem 0 0; }
+
+  @media (min-width: 1000px) {
+    .game-grid { grid-template-columns: minmax(0, .85fr) minmax(0, 1.35fr); align-items: start; gap: 3.5rem; }
+  }
+  @media (min-width: 720px) {
+    .notes { max-width: none; }
+    .notes-list { grid-template-columns: 1fr 1fr; column-gap: 2.5rem; }
+    .notes-list div:nth-last-child(2) { border-bottom: 0; }
   }
 
   /* Stüdyo */
@@ -216,7 +228,7 @@
 </head>
 
 <body>
-<a class="skip" href="#oyunlar">İçeriğe geç</a>
+<a class="skip" href="#oyun">İçeriğe geç</a>
 
 <div class="top-area" id="top">
   <div class="wrap">
@@ -226,7 +238,7 @@
         <span class="brand-sub">game studio</span>
       </a>
       <nav class="nav" aria-label="Ana menü">
-        <a href="#oyunlar">Oyunlar</a>
+        <a href="#oyun">Oyun</a>
         <a href="#studyo">Stüdyo</a>
         <a href="#iletisim">İletişim</a>
       </nav>
@@ -235,8 +247,7 @@
     <main class="hero">
       <div>
         <h1>Çift tıkla, oyuna gir.</h1>
-        <!-- DÜZENLE: stüdyonun kısa tanıtımı -->
-        <p class="lead">exe, tek bir fikri sonuna kadar götüren bağımsız bir oyun stüdyosu. Aşağıda şu an üzerinde çalıştığımız oyunlar var.</p>
+        <p class="lead">exe, tarihi olayları oynanabilir hâle getiren bağımsız bir oyun stüdyosu. İlk oyunumuz Çete Destanı: Maraş Kurtuluşu Android, iOS ve tarayıcıda oynanabiliyor.</p>
       </div>
 
       <div class="win hero-win">
@@ -247,7 +258,7 @@
         <div class="inner">
           <p class="st">
             <span class="st-load">exe.exe yükleniyor…</span>
-            <span class="st-done">Hazır. Bir oyun seç.</span>
+            <span class="st-done">Hazır. Bir dosya seç.</span>
           </p>
           <div class="track" aria-hidden="true">
             <span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span>
@@ -256,9 +267,8 @@
             <span style="--i:12"></span><span style="--i:13"></span><span style="--i:14"></span><span style="--i:15"></span>
           </div>
           <ul class="files">
-            <li><a href="#kul"><span class="ficon"></span>kul.exe<small>Aksiyon platform</small></a></li>
-            <li><a href="#sessiz-vardiya"><span class="ficon"></span>sessiz_vardiya.exe<small>Anlatı korku</small></a></li>
-            <li><a href="#pixel-pazar"><span class="ficon"></span>pixel_pazar.exe<small>Ticaret simülasyonu</small></a></li>
+            <li><a href="#oyun"><span class="ficon"></span>cete_destani.exe<small>Oyun hakkında</small></a></li>
+            <li><a href="#oyna"><span class="ficon"></span>cete_destani_web.exe<small>Tarayıcıda oyna</small></a></li>
           </ul>
         </div>
       </div>
@@ -266,141 +276,116 @@
   </div>
 </div>
 
-<!-- ===================== OYUNLAR ===================== -->
-<!-- DÜZENLE: Aşağıdaki üç oyun örnek içeriktir. Adları, açıklamaları ve durumları kendi oyunlarına göre değiştir. -->
-<section class="section" id="oyunlar" aria-labelledby="oyunlar-baslik">
+<!-- ===================== OYUN ===================== -->
+<section class="section" id="oyun" aria-labelledby="oyun-baslik">
   <div class="wrap">
     <div class="section-head">
-      <h2 id="oyunlar-baslik">Oyunlar</h2>
-      <p>Üzerinde çalıştığımız üç proje. Hepsi PC için geliştiriliyor.</p>
+      <h2 id="oyun-baslik">Çete Destanı: Maraş Kurtuluşu</h2>
+      <p>Kahramanmaraş direnişini konu alan tarihi bir aksiyon ve strateji oyunu.</p>
     </div>
 
-    <div class="games">
+    <div class="game-grid">
 
-      <!-- Oyun 1 (öne çıkan) -->
-      <article class="win game-featured" id="kul">
-        <div class="bar"><span>kul.exe</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
-        <div class="content">
-          <svg class="art" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" role="img" aria-label="Kül oyunundan bir sahne: küllerle kaplı dağlar ve küçük bir gezgin">
-            <rect width="480" height="300" fill="#14123A"/>
-            <rect y="60"  width="480" height="60" fill="#25208F"/>
-            <rect y="120" width="480" height="50" fill="#5B3FD0"/>
-            <rect y="170" width="480" height="40" fill="#D2578F"/>
-            <rect x="330" y="150" width="56" height="56" fill="#FFD23F"/>
-            <polygon points="0,230 70,150 120,200 190,120 260,210 330,170 400,220 480,160 480,300 0,300" fill="#14123A"/>
-            <rect y="252" width="480" height="48" fill="#0B0A26"/>
-            <rect x="221" y="226" width="8"  height="6"  fill="#ECEAF7"/>
-            <rect x="220" y="232" width="10" height="20" fill="#ECEAF7"/>
-            <rect x="232" y="240" width="5"  height="5"  fill="#FFD23F"/>
-            <rect x="60"  y="40"  width="4" height="4" fill="#FFD23F"/>
-            <rect x="130" y="90"  width="4" height="4" fill="#FF9A3F"/>
-            <rect x="180" y="30"  width="4" height="4" fill="#FFD23F"/>
-            <rect x="260" y="80"  width="4" height="4" fill="#FF9A3F"/>
-            <rect x="300" y="35"  width="4" height="4" fill="#FFD23F"/>
-            <rect x="410" y="70"  width="4" height="4" fill="#FF9A3F"/>
-            <rect x="440" y="110" width="4" height="4" fill="#FFD23F"/>
-            <rect x="90"  y="140" width="4" height="4" fill="#FF9A3F"/>
-            <rect x="350" y="120" width="4" height="4" fill="#FFD23F"/>
+      <article class="win">
+        <div class="bar"><span>cete_destani.exe</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="info">
+          <span class="tag">Yayında</span>
+          <h3>Karakterini seç, mücadeleye katıl</h3>
+          <p>Sütçü İmam, Arslan Bey ya da Rıdvan Hoca ile kendi kurtuluş hikâyeni başlat. Şehirde dolaş, çeteni büyüt ve kaledeki büyük savaşa hazırlan.</p>
+          <dl class="props">
+            <dt>Tür</dt><dd>Tarihi aksiyon ve strateji</dd>
+            <dt>Platform</dt><dd>Android, iOS ve web</dd>
+          </dl>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.exe.cetedestani" rel="noopener">Google Play'den indir</a>
+          <!-- DÜZENLE: App Store adresin olunca aşağıdaki satırın yorumunu kaldırıp adresi yaz
+          <a class="btn" href="APP_STORE_ADRESI" rel="noopener">App Store'dan indir</a>
+          -->
+          <p class="small">iPhone'da App Store'da "Çete Destanı: Maraş Kurtuluşu" yazarak da bulabilirsin.</p>
+        </div>
+      </article>
+
+      <div class="win" id="oyna">
+        <div class="bar"><span>cete_destani_web.exe</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <!-- DÜZENLE: oyun dikey (mobil) ise --ratio değerini 9 / 16 yap -->
+        <div class="stage" id="stage" style="--ratio: 16 / 9">
+          <svg viewBox="0 0 960 540" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" role="img" aria-label="Oyundan bir sahne: gün batımında kale ve önünde toplanan üç kahraman">
+            <rect width="960" height="540" fill="#14123A"/>
+            <rect y="90"  width="960" height="90" fill="#25208F"/>
+            <rect y="180" width="960" height="80" fill="#5B3FD0"/>
+            <rect y="260" width="960" height="60" fill="#D2578F"/>
+            <rect x="700" y="240" width="70" height="70" fill="#FFD23F"/>
+            <rect x="400" y="240" width="170" height="80" fill="#0B0A26"/>
+            <rect x="400" y="228" width="16" height="12" fill="#0B0A26"/>
+            <rect x="428" y="228" width="16" height="12" fill="#0B0A26"/>
+            <rect x="456" y="228" width="16" height="12" fill="#0B0A26"/>
+            <rect x="484" y="228" width="16" height="12" fill="#0B0A26"/>
+            <rect x="512" y="228" width="16" height="12" fill="#0B0A26"/>
+            <rect x="380" y="200" width="40" height="120" fill="#0B0A26"/>
+            <rect x="380" y="188" width="12" height="12" fill="#0B0A26"/>
+            <rect x="408" y="188" width="12" height="12" fill="#0B0A26"/>
+            <rect x="550" y="190" width="40" height="130" fill="#0B0A26"/>
+            <rect x="550" y="178" width="12" height="12" fill="#0B0A26"/>
+            <rect x="578" y="178" width="12" height="12" fill="#0B0A26"/>
+            <rect x="568" y="146" width="4" height="32" fill="#0B0A26"/>
+            <rect x="572" y="146" width="24" height="14" fill="#FF5C8A"/>
+            <polygon points="0,410 180,350 420,310 640,335 960,300 960,540 0,540" fill="#14123A"/>
+            <rect y="470" width="960" height="70" fill="#0B0A26"/>
+            <!-- kalabalık -->
+            <rect x="248" y="446" width="8" height="6" fill="#8F8BC9"/><rect x="246" y="452" width="12" height="18" fill="#8F8BC9"/>
+            <rect x="288" y="446" width="8" height="6" fill="#8F8BC9"/><rect x="286" y="452" width="12" height="18" fill="#8F8BC9"/>
+            <rect x="328" y="446" width="8" height="6" fill="#8F8BC9"/><rect x="326" y="452" width="12" height="18" fill="#8F8BC9"/>
+            <rect x="618" y="446" width="8" height="6" fill="#8F8BC9"/><rect x="616" y="452" width="12" height="18" fill="#8F8BC9"/>
+            <rect x="658" y="446" width="8" height="6" fill="#8F8BC9"/><rect x="656" y="452" width="12" height="18" fill="#8F8BC9"/>
+            <rect x="698" y="446" width="8" height="6" fill="#8F8BC9"/><rect x="696" y="452" width="12" height="18" fill="#8F8BC9"/>
+            <!-- üç kahraman -->
+            <rect x="383" y="424" width="14" height="12" fill="#ECEAF7"/><rect x="380" y="436" width="20" height="34" fill="#ECEAF7"/><rect x="380" y="436" width="20" height="6" fill="#FFD23F"/>
+            <rect x="443" y="424" width="14" height="12" fill="#ECEAF7"/><rect x="440" y="436" width="20" height="34" fill="#ECEAF7"/><rect x="440" y="436" width="20" height="6" fill="#FF5C8A"/>
+            <rect x="503" y="424" width="14" height="12" fill="#ECEAF7"/><rect x="500" y="436" width="20" height="34" fill="#ECEAF7"/><rect x="500" y="436" width="20" height="6" fill="#7A86FF"/>
           </svg>
-          <div class="info">
-            <span class="tag">Geliştiriliyor</span>
-            <h3>Kül</h3>
-            <p>Küllere gömülmüş bir dağ yolunda, sönmek üzere olan bir fener taşıyan gezginin hikâyesi. Her zıplayış fenerdeki ateşten harcar; ilerlemek için ateşi doğru yerde kullanmak gerekir.</p>
-            <dl class="props">
-              <dt>Tür</dt><dd>Aksiyon platform</dd>
-              <dt>Platform</dt><dd>PC (Windows)</dd>
-            </dl>
-            <a class="btn" href="#iletisim">Çıkınca haber ver</a>
+          <div class="run-wrap" id="cover">
+            <button class="btn" type="button" id="run">Oyunu başlat</button>
+            <p class="stage-note" id="stage-note" role="status" hidden>Web sürümü yakında burada olacak. Şimdilik mobil sürümü indirebilirsin.</p>
           </div>
         </div>
-      </article>
-
-      <!-- Oyun 2 -->
-      <article class="win" id="sessiz-vardiya">
-        <div class="bar"><span>sessiz_vardiya.exe</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
-        <svg class="art" viewBox="0 0 360 220" shape-rendering="crispEdges" role="img" aria-label="Sessiz Vardiya oyunundan bir sahne: geceleyin, birkaç penceresi yanan bir iş hanı">
-          <defs>
-            <pattern id="pencere" width="40" height="40" patternUnits="userSpaceOnUse">
-              <rect x="8" y="8" width="24" height="24" fill="#25208F"/>
-            </pattern>
-          </defs>
-          <rect width="360" height="220" fill="#14123A"/>
-          <rect x="300" y="18" width="24" height="24" fill="#ECEAF7"/>
-          <rect x="40" y="40" width="280" height="160" fill="#1C1A5E"/>
-          <rect x="40" y="40" width="280" height="160" fill="url(#pencere)"/>
-          <rect x="128" y="88"  width="24" height="24" fill="#FFD23F"/>
-          <rect x="208" y="128" width="24" height="24" fill="#FFD23F"/>
-          <rect x="288" y="48"  width="24" height="24" fill="#FFD23F"/>
-          <rect x="138" y="98"  width="6"  height="14" fill="#14123A"/>
-          <rect x="0" y="200" width="360" height="20" fill="#0B0A26"/>
-        </svg>
-        <div class="info">
-          <span class="tag tag-pink">Prototip</span>
-          <h3>Sessiz Vardiya</h3>
-          <p>Boş bir iş hanında gece bekçisisin. Pencerelerdeki ışıklar birer birer yanıyor; kimin içeride olduğunu bilmiyorsun.</p>
-          <dl class="props">
-            <dt>Tür</dt><dd>Anlatı korku</dd>
-            <dt>Platform</dt><dd>PC (Windows)</dd>
-          </dl>
-          <a class="btn" href="#iletisim">Çıkınca haber ver</a>
+        <div class="play-foot">
+          <span>Tarayıcıda oynamak için başlat düğmesine bas.</span>
+          <a id="itch-link" href="#" rel="noopener" hidden>itch.io'da aç</a>
         </div>
-      </article>
+      </div>
 
-      <!-- Oyun 3 -->
-      <article class="win" id="pixel-pazar">
-        <div class="bar"><span>pixel_pazar.exe</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
-        <svg class="art" viewBox="0 0 360 220" shape-rendering="crispEdges" role="img" aria-label="Pixel Pazar oyunundan bir sahne: çizgili tenteleri olan üç pazar tezgâhı">
-          <defs>
-            <pattern id="tente" width="24" height="10" patternUnits="userSpaceOnUse">
-              <rect width="12" height="10" fill="#ECEAF7"/>
-              <rect x="12" width="12" height="10" fill="#FF5C8A"/>
-            </pattern>
-          </defs>
-          <rect width="360" height="220" fill="#1F2BD9"/>
-          <rect x="24"  y="70" width="96" height="14" fill="url(#tente)"/>
-          <rect x="132" y="50" width="96" height="14" fill="url(#tente)"/>
-          <rect x="240" y="70" width="96" height="14" fill="url(#tente)"/>
-          <rect x="28"  y="84" width="4" height="90" fill="#14123A"/>
-          <rect x="112" y="84" width="4" height="90" fill="#14123A"/>
-          <rect x="136" y="64" width="4" height="110" fill="#14123A"/>
-          <rect x="220" y="64" width="4" height="110" fill="#14123A"/>
-          <rect x="244" y="84" width="4" height="90" fill="#14123A"/>
-          <rect x="328" y="84" width="4" height="90" fill="#14123A"/>
-          <rect x="24"  y="140" width="96" height="34" fill="#14123A"/>
-          <rect x="132" y="140" width="96" height="34" fill="#14123A"/>
-          <rect x="240" y="140" width="96" height="34" fill="#14123A"/>
-          <rect x="36"  y="126" width="14" height="14" fill="#FFD23F"/>
-          <rect x="58"  y="126" width="14" height="14" fill="#FF5C8A"/>
-          <rect x="148" y="126" width="14" height="14" fill="#FFD23F"/>
-          <rect x="170" y="126" width="14" height="14" fill="#ECEAF7"/>
-          <rect x="192" y="126" width="14" height="14" fill="#FFD23F"/>
-          <rect x="256" y="126" width="14" height="14" fill="#FF5C8A"/>
-          <rect x="0" y="174" width="360" height="46" fill="#14123A"/>
-        </svg>
-        <div class="info">
-          <span class="tag tag-plain">Yakında</span>
-          <h3>Pixel Pazar</h3>
-          <p>Bir mahalle pazarında tezgâh kur, fiyatları pazarlıkla belirle, komşularının siparişlerini yetiştir.</p>
-          <dl class="props">
-            <dt>Tür</dt><dd>Ticaret simülasyonu</dd>
-            <dt>Platform</dt><dd>PC ve mobil</dd>
-          </dl>
-          <a class="btn" href="#iletisim">Çıkınca haber ver</a>
+    </div>
+
+    <div class="win notes">
+      <div class="bar"><span>nasil_oynanir.txt</span><span class="ctl" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="notes-list">
+        <div>
+          <h3>Karakterini seç</h3>
+          <p>Her karakterin başlangıç özellikleri, liderlik yeteneği ve avantajları farklı. Seçimin savaş stratejini doğrudan etkiler.</p>
         </div>
-      </article>
-
+        <div>
+          <h3>Şehirde gez, çeteni büyüt</h3>
+          <p>Şehirde özgürce dolaşıp boşta duran askerleri ve gönüllüleri çetene kat. Her yeni savaşçı gücünü artırır.</p>
+        </div>
+        <div>
+          <h3>Savaş ve güçlen</h3>
+          <p>Her çatışma deneyim kazandırır. Seviye atladıkça liderlik, saldırı ve savunma yeteneklerinden birini seçersin.</p>
+        </div>
+        <div>
+          <h3>Büyük savaşa hazırlan</h3>
+          <p>Amacın, kalede yapılacak 200 askerlik büyük savaşa en güçlü hâlinle ulaşmak.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ===================== STÜDYO ===================== -->
-<!-- DÜZENLE: Metni ve özellik tablosunu kendi bilgilerinle değiştir. -->
 <section class="section studio" id="studyo" aria-labelledby="studyo-baslik">
   <div class="wrap studio-grid">
     <div>
       <h2 id="studyo-baslik">Stüdyo</h2>
-      <p>exe, küçük bir ekibin bağımsız oyun stüdyosu. Her projeyi tek bir sağlam fikir etrafında kuruyor, çıkmadan önce oynanabilir hâle getirip test ediyoruz.</p>
-      <p>Tasarım, kod ve müzik aynı masada birlikte ilerliyor. Bu yüzden oyunlarımız tek elden çıkmış gibi hissettirir.</p>
+      <p>exe, tarihi olayları hızlı, anlaşılır ve oynaması keyifli oyunlara çeviren bağımsız bir ekip.</p>
+      <p>İlk oyunumuz Çete Destanı, Kahramanmaraş'ın kurtuluş mücadelesini oyuncunun kendi kararlarıyla yaşatıyor.</p>
     </div>
 
     <div class="win">
@@ -411,10 +396,9 @@
       </div>
       <dl class="props">
         <dt>Tür</dt><dd>Bağımsız oyun stüdyosu</dd>
-        <dt>Konum</dt><dd>Türkiye</dd>
-        <dt>Kuruluş</dt><dd>2026</dd>
-        <dt>Platform</dt><dd>PC</dd>
-        <dt>Projeler</dt><dd>3 oyun geliştiriliyor</dd>
+        <dt>Yayındaki oyun</dt><dd>Çete Destanı: Maraş Kurtuluşu</dd>
+        <dt>Platform</dt><dd>Android, iOS ve web</dd>
+        <dt>Instagram</dt><dd>@exegamestudio</dd>
       </dl>
     </div>
   </div>
@@ -424,11 +408,10 @@
 <section class="section contact" id="iletisim" aria-labelledby="iletisim-baslik">
   <div class="wrap">
     <h2 id="iletisim-baslik">İletişim</h2>
-    <p>Oyunlarımız, iş birliği ya da basın için bize yaz.</p>
-    <!-- DÜZENLE: kendi e-posta adresini yaz (hem href hem görünen metin) -->
-    <a class="mail" href="mailto:merhaba@exestudio.com">merhaba@exestudio.com</a>
+    <p>Oyunumuz, iş birliği ya da basın için bize yaz.</p>
+    <a class="mail" href="mailto:exegamestd@gmail.com">exegamestd@gmail.com</a>
     <div class="links">
-      <a href="https://github.com/kadirzbk" rel="noopener">GitHub</a>
+      <a href="https://www.instagram.com/exegamestudio/" rel="noopener">Instagram: @exegamestudio</a>
     </div>
   </div>
 </section>
@@ -436,5 +419,36 @@
 <footer class="contact foot">
   <div class="wrap">© 2026 exe game studio. Tüm hakları saklıdır.</div>
 </footer>
+
+<script>
+  /* DÜZENLE: itch.io bilgilerini buraya yaz.
+     ITCH_EMBED: itch.io "Embed options" bölümündeki iframe kodunun içindeki src="..." adresi.
+     ITCH_PAGE : oyunun itch.io sayfası (örn. https://kullanici.itch.io/oyun). */
+  const ITCH_EMBED = "";
+  const ITCH_PAGE  = "";
+
+  const stage = document.getElementById("stage");
+  const cover = document.getElementById("cover");
+  const note  = document.getElementById("stage-note");
+  const link  = document.getElementById("itch-link");
+
+  if (ITCH_PAGE.startsWith("https://")) {
+    link.href = ITCH_PAGE;
+    link.hidden = false;
+  }
+
+  document.getElementById("run").addEventListener("click", function () {
+    if (!ITCH_EMBED.startsWith("https://")) {
+      note.hidden = false;
+      return;
+    }
+    const frame = document.createElement("iframe");
+    frame.src = ITCH_EMBED;
+    frame.title = "Çete Destanı: Maraş Kurtuluşu web sürümü";
+    frame.allow = "fullscreen; autoplay";
+    frame.setAttribute("allowfullscreen", "");
+    stage.replaceChildren(frame);
+  });
+</script>
 </body>
 </html>
